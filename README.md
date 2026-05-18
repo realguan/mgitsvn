@@ -1,6 +1,15 @@
 # MGitSVN
 
-面向 `SVN + git-svn + 多仓库` 开发场景的 VS Code / Windsurf 插件。
+[![VS Code Version](https://img.shields.io/badge/VS%20Code-%5E1.85.0-blue)](https://code.visualstudio.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Marketplace](https://img.shields.io/badge/Marketplace-Install-green)](https://marketplace.visualstudio.com/items?itemName=realguan.mgitsvn)
+
+面向 `SVN + git-svn + 多仓库` 开发场景的 VS Code 插件。
+
+> **截图**
+>
+> <!-- 在此处添加插件截图，建议使用 GIF 或 PNG -->
+> ![MGitSVN 截图](docs/images/screenshot.png)
 
 它解决的是这样一类项目痛点：
 
@@ -393,13 +402,15 @@ MGitSVN: 管理 SVN 凭据
 
 ## 安装
 
+### 从 Marketplace 安装
+
+直接在 VS Code 中搜索 `MGitSVN`，或访问 [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=realguan.mgitsvn) 安装。
+
 ### 从 VSIX 安装
 
 ```bash
 code --install-extension mgitsvn-0.1.0.vsix
 ```
-
-如果你使用 Windsurf，也可以用相同方式安装对应的 VSIX。
 
 ### 开发模式
 
@@ -421,4 +432,4 @@ pnpm run compile
 
 ## License
 
-MIT
+[MIT](LICENSE)
