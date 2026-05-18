@@ -1,4 +1,4 @@
-.PHONY: help install build dev package publish publish-current publish-bump clean lint check vsix-install vscode-install bump all
+.PHONY: help install build dev package publish publish-current publish-bump release release-dry clean lint check vsix-install vscode-install bump all
 
 # ─── 变量 ────────────────────────────────────────────────────
 DIST_DIR   = dist
@@ -35,6 +35,11 @@ help:
 	@echo "  make publish-bump           升 patch 版本后发布 [默认]"
 	@echo "  make publish-bump VERSION=minor  升 minor 版本后发布"
 	@echo "  make publish-bump VERSION=major  升 major 版本后发布"
+	@echo ""
+	@echo "$(GREEN)一键发布（推荐）:$(RESET)"
+	@echo "  make release                 升版本 → 提交 → 打tag → 推送 → 发布"
+	@echo "  make release VERSION=minor   同上，升 minor 版本"
+	@echo "  make release-dry             仅预览 release 步骤，不实际执行"
 	@echo ""
 	@echo "$(GREEN)其他命令:$(RESET)"
 	@echo "  make lint         代码检查"
@@ -149,3 +154,45 @@ clean:
 	rm -rf $(DIST_DIR)
 	rm -f *.vsix
 	@echo "$(GREEN)✅ 清理完成$(RESET)"
+
+# ─── 一键发布（推荐流程） ──────────────────────────────────────
+# 流程：升版本 → 提交 → 打 tag → 推送 → 发布到 VS Code Marketplace
+# 用法：
+#   make release                 # 升 patch（默认）
+#   make release VERSION=minor   # 升 minor
+#   make release VERSION=major   # 升 major
+release:
+	@echo "$(CYAN)🚀 一键发布流程$(RESET)"
+	@NEW_VER=$$(npm version $(VERSION) --no-git-tag-version 2>/dev/null | sed 's/^v//') && \
+	echo "$(GREEN)📌 版本号: $$NEW_VER$(RESET)" && \
+	git add package.json && \
+	git commit -m "chore: bump version to $$NEW_VER" && \
+	git tag "v$$NEW_VER" && \
+	echo "$(CYAN)📤 推送到 GitHub...$(RESET)" && \
+	git push && git push --tags && \
+	echo "$(CYAN)📦 构建并发布到 VS Code Marketplace...$(RESET)" && \
+	pnpm run esbuild -- --production && \
+	pnpm exec vsce publish $(VSCE_FLAGS) && \
+	echo "$(GREEN)✅ 发布完成: v$$NEW_VER$(RESET)"
+
+# ─── 预览发布步骤（不实际执行） ─────────────────────────────────
+release-dry:
+	@echo "$(CYAN)📋 预览发布步骤:$(RESET)"
+	@echo ""
+	@CURRENT=$$(node -p "require('./package.json').version") && \
+	case "$(VERSION)" in \
+		patch) NEW=$$(echo $$CURRENT | awk -F. '{print $$1"."$$2"."$$3+1}') ;; \
+		minor) NEW=$$(echo $$CURRENT | awk -F. '{print $$1"."$$2+1".0"}') ;; \
+		major) NEW=$$(echo $$CURRENT | awk -F. '{print $$1+1".0.0"}') ;; \
+		*) NEW="$(VERSION)" ;; \
+	esac && \
+	echo "  当前版本:  $$CURRENT" && \
+	echo "  目标版本:  $$NEW" && \
+	echo "" && \
+	echo "  1. npm version $(VERSION) --no-git-tag-version" && \
+	echo "  2. git add package.json" && \
+	echo "  3. git commit -m 'chore: bump version to $$NEW'" && \
+	echo "  4. git tag v$$NEW" && \
+	echo "  5. git push && git push --tags" && \
+	echo "  6. esbuild --production" && \
+	echo "  7. vsce publish --no-dependencies --allow-missing-repository --skip-license"
