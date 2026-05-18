@@ -1,0 +1,18 @@
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <!-- MGitSVN Activity Bar Icon -->
+  <!-- Design: Git branch nodes with SVN curve, balanced visual weight -->
+  
+  <!-- Main trunk line -->
+  <path d="M6 19 V5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  
+  <!-- Branch fork -->
+  <path d="M6 12 L12 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- SVN curve (distinctive hook) -->
+  <path d="M12 7 C15 4, 17 14, 20 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+  
+  <!-- Git nodes -->
+  <circle cx="6" cy="5" r="2" fill="currentColor"/>
+  <circle cx="6" cy="19" r="2" fill="currentColor"/>
+  <circle cx="12" cy="7" r="2" fill="currentColor"/>
+</svg>

@@ -1,0 +1,10 @@
+.vscode/**
+.claude/**
+src/**
+tsconfig.json
+.gitignore
+pnpm-lock.yaml
+*.md
+!README.md
+技术方案.md
+需求.md

@@ -1,0 +1,484 @@
+{
+  "name": "mgitsvn",
+  "displayName": "MGitSVN",
+  "description": "Multi-repository git-svn manager for VS Code",
+  "version": "0.1.5",
+  "publisher": "realguan",
+  "icon": "resources/icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "SCM Providers",
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "mgitsvn.rebaseAll",
+        "title": "全部更新",
+        "shortTitle": "更新",
+        "category": "MGitSVN",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "mgitsvn.dcommitAll",
+        "title": "全部提交",
+        "shortTitle": "提交",
+        "category": "MGitSVN",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "mgitsvn.statusAll",
+        "title": "查看全部状态",
+        "category": "MGitSVN",
+        "icon": "$(pulse)"
+      },
+      {
+        "command": "mgitsvn.checkoutBranch",
+        "title": "切换分支",
+        "category": "MGitSVN",
+        "icon": "$(git-compare)"
+      },
+      {
+        "command": "mgitsvn.createWorktree",
+        "title": "创建工作树",
+        "category": "MGitSVN",
+        "icon": "$(repo-forked)"
+      },
+      {
+        "command": "mgitsvn.removeWorktree",
+        "title": "删除工作树",
+        "category": "MGitSVN",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "mgitsvn.openWorktree",
+        "title": "打开工作树",
+        "category": "MGitSVN",
+        "icon": "$(multiple-windows)"
+      },
+      {
+        "command": "mgitsvn.cloneProject",
+        "title": "克隆项目",
+        "category": "MGitSVN",
+        "icon": "$(repo-clone)"
+      },
+      {
+        "command": "mgitsvn.refresh",
+        "title": "刷新",
+        "category": "MGitSVN",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "mgitsvn.initConfig",
+        "title": "初始化配置",
+        "category": "MGitSVN",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "mgitsvn.rebaseProject",
+        "title": "更新项目",
+        "category": "MGitSVN",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "mgitsvn.dcommitProject",
+        "title": "提交项目",
+        "category": "MGitSVN",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "mgitsvn.cloneAllProjects",
+        "title": "克隆全部项目",
+        "category": "MGitSVN",
+        "icon": "$(repo-clone)"
+      },
+      {
+        "command": "mgitsvn.switchSvnRemote",
+        "title": "切换 SVN 源（trunk/branch）",
+        "category": "MGitSVN",
+        "icon": "$(remote)"
+      },
+      {
+        "command": "mgitsvn.openInTerminal",
+        "title": "在终端中打开",
+        "category": "MGitSVN",
+        "icon": "$(terminal)"
+      },
+      {
+        "command": "mgitsvn.openConfig",
+        "title": "打开配置文件",
+        "category": "MGitSVN",
+        "icon": "$(go-to-file)"
+      },
+      {
+        "command": "mgitsvn.openDocumentation",
+        "title": "查看文档",
+        "category": "MGitSVN",
+        "icon": "$(book)"
+      },
+      {
+        "command": "mgitsvn.openWorktreeFolder",
+        "title": "打开文件夹",
+        "category": "MGitSVN",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "mgitsvn.manageSvnCredential",
+        "title": "管理 SVN 凭据",
+        "category": "MGitSVN",
+        "icon": "$(key)"
+      },
+      {
+        "command": "mgitsvn.clearSvnCredential",
+        "title": "清除 SVN 凭据",
+        "category": "MGitSVN",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "mgitsvn.scanExternals",
+        "title": "扫描 SVN Externals",
+        "category": "MGitSVN",
+        "icon": "$(search)"
+      },
+      {
+        "command": "mgitsvn.scanProjectExternals",
+        "title": "扫描项目 Externals",
+        "category": "MGitSVN",
+        "icon": "$(search)"
+      },
+      {
+        "command": "mgitsvn.importProjectExternals",
+        "title": "导入项目 Externals",
+        "category": "MGitSVN",
+        "icon": "$(repo-clone)"
+      },
+      {
+        "command": "mgitsvn.applyProjectFileExternals",
+        "title": "应用项目 File Externals",
+        "category": "MGitSVN",
+        "icon": "$(file-code)"
+      },
+      {
+        "command": "mgitsvn.reapplyFileExternals",
+        "title": "重放 File Externals",
+        "category": "MGitSVN",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "mgitsvn.mergeWorktree",
+        "title": "合并到主分支",
+        "shortTitle": "合并",
+        "category": "MGitSVN",
+        "icon": "$(git-merge)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "mgitsvn",
+          "title": "MGitSVN",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "mgitsvn": [
+        {
+          "id": "mgitsvn.projects",
+          "name": "项目",
+          "icon": "$(repo)"
+        },
+        {
+          "id": "mgitsvn.worktrees",
+          "name": "工作树",
+          "icon": "$(folder-library)"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "mgitsvn.projects",
+        "contents": "未找到 MGitSVN 配置文件。\n请在工作区根目录创建 `.mgitsvn.json` 或自动初始化。\n[$(gear) 初始化配置](command:mgitsvn.initConfig)\n[$(book) 查看文档](command:mgitsvn.openDocumentation)",
+        "when": "!mgitsvn.configLoaded"
+      },
+      {
+        "view": "mgitsvn.worktrees",
+        "contents": "使用工作树前，需要先初始化 MGitSVN 配置。\n[$(gear) 初始化配置](command:mgitsvn.initConfig)\n[$(book) 查看文档](command:mgitsvn.openDocumentation)",
+        "when": "!mgitsvn.configLoaded"
+      },
+      {
+        "view": "mgitsvn.worktrees",
+        "contents": "还没有工作树。\n工作树可以让你同时在多个分支上工作，无需反复切换。\n[$(new-folder) 创建工作树](command:mgitsvn.createWorktree)",
+        "when": "mgitsvn.configLoaded"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "mgitsvn.refresh",
+          "when": "view == mgitsvn.projects || view == mgitsvn.worktrees",
+          "group": "navigation@99"
+        },
+        {
+          "command": "mgitsvn.rebaseAll",
+          "when": "view == mgitsvn.projects",
+          "group": "navigation@1"
+        },
+        {
+          "command": "mgitsvn.dcommitAll",
+          "when": "view == mgitsvn.projects",
+          "group": "navigation@2"
+        },
+        {
+          "command": "mgitsvn.checkoutBranch",
+          "when": "view == mgitsvn.projects",
+          "group": "navigation@3"
+        },
+        {
+          "command": "mgitsvn.switchSvnRemote",
+          "when": "view == mgitsvn.projects",
+          "group": "navigation@4"
+        },
+        {
+          "command": "mgitsvn.statusAll",
+          "when": "view == mgitsvn.projects",
+          "group": "1_status"
+        },
+        {
+          "command": "mgitsvn.cloneAllProjects",
+          "when": "view == mgitsvn.projects",
+          "group": "2_clone@1"
+        },
+        {
+          "command": "mgitsvn.initConfig",
+          "when": "view == mgitsvn.projects",
+          "group": "9_config@1"
+        },
+        {
+          "command": "mgitsvn.openConfig",
+          "when": "view == mgitsvn.projects",
+          "group": "9_config@2"
+        },
+        {
+          "command": "mgitsvn.openDocumentation",
+          "when": "view == mgitsvn.projects || view == mgitsvn.worktrees",
+          "group": "9_config@2.5"
+        },
+        {
+          "command": "mgitsvn.manageSvnCredential",
+          "when": "view == mgitsvn.projects",
+          "group": "9_config@3"
+        },
+        {
+          "command": "mgitsvn.scanExternals",
+          "when": "view == mgitsvn.projects",
+          "group": "9_config@4"
+        },
+        {
+          "command": "mgitsvn.reapplyFileExternals",
+          "when": "view == mgitsvn.projects",
+          "group": "9_config@5"
+        },
+        {
+          "command": "mgitsvn.createWorktree",
+          "when": "view == mgitsvn.worktrees",
+          "group": "navigation@1"
+        },
+        {
+          "command": "mgitsvn.mergeWorktree",
+          "when": "view == mgitsvn.worktrees",
+          "group": "navigation@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "mgitsvn.rebaseProject",
+          "when": "view == mgitsvn.projects && viewItem == project",
+          "group": "inline@1"
+        },
+        {
+          "command": "mgitsvn.dcommitProject",
+          "when": "view == mgitsvn.projects && viewItem == project",
+          "group": "inline@2"
+        },
+        {
+          "command": "mgitsvn.openInTerminal",
+          "when": "view == mgitsvn.projects && viewItem == project",
+          "group": "inline@3"
+        },
+        {
+          "command": "mgitsvn.rebaseProject",
+          "when": "view == mgitsvn.projects && viewItem == project",
+          "group": "1_sync@1"
+        },
+        {
+          "command": "mgitsvn.dcommitProject",
+          "when": "view == mgitsvn.projects && viewItem == project",
+          "group": "1_sync@2"
+        },
+        {
+          "command": "mgitsvn.openInTerminal",
+          "when": "view == mgitsvn.projects && viewItem == project",
+          "group": "2_open@1"
+        },
+        {
+          "command": "mgitsvn.scanProjectExternals",
+          "when": "view == mgitsvn.projects && viewItem == project",
+          "group": "2_open@2"
+        },
+        {
+          "command": "mgitsvn.importProjectExternals",
+          "when": "view == mgitsvn.projects && viewItem == project",
+          "group": "2_open@3"
+        },
+        {
+          "command": "mgitsvn.applyProjectFileExternals",
+          "when": "view == mgitsvn.projects && viewItem == project",
+          "group": "2_open@4"
+        },
+        {
+          "command": "mgitsvn.openWorktree",
+          "when": "view == mgitsvn.worktrees && viewItem == worktree",
+          "group": "inline@1"
+        },
+        {
+          "command": "mgitsvn.openInTerminal",
+          "when": "view == mgitsvn.worktrees && viewItem == worktree",
+          "group": "inline@2"
+        },
+        {
+          "command": "mgitsvn.mergeWorktree",
+          "when": "view == mgitsvn.worktrees && viewItem == worktree",
+          "group": "inline@3"
+        },
+        {
+          "command": "mgitsvn.removeWorktree",
+          "when": "view == mgitsvn.worktrees && viewItem == worktree",
+          "group": "inline@4"
+        },
+        {
+          "command": "mgitsvn.openWorktree",
+          "when": "view == mgitsvn.worktrees && viewItem == worktree",
+          "group": "1_open@1"
+        },
+        {
+          "command": "mgitsvn.openInTerminal",
+          "when": "view == mgitsvn.worktrees && viewItem == worktree",
+          "group": "1_open@2"
+        },
+        {
+          "command": "mgitsvn.mergeWorktree",
+          "when": "view == mgitsvn.worktrees && viewItem == worktree",
+          "group": "1_sync@9"
+        },
+        {
+          "command": "mgitsvn.removeWorktree",
+          "when": "view == mgitsvn.worktrees && viewItem == worktree",
+          "group": "9_danger"
+        },
+        {
+          "command": "mgitsvn.openWorktreeFolder",
+          "when": "view == mgitsvn.worktrees && viewItem == worktreeProject",
+          "group": "inline@1"
+        },
+        {
+          "command": "mgitsvn.openInTerminal",
+          "when": "view == mgitsvn.worktrees && viewItem == worktreeProject",
+          "group": "inline@2"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "mgitsvn.rebaseAll",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r"
+      },
+      {
+        "command": "mgitsvn.dcommitAll",
+        "key": "ctrl+shift+d",
+        "mac": "cmd+shift+d"
+      },
+      {
+        "command": "mgitsvn.statusAll",
+        "key": "ctrl+shift+s",
+        "mac": "cmd+shift+s"
+      }
+    ],
+    "configuration": {
+      "title": "MGitSVN",
+      "properties": {
+        "mgitsvn.concurrency": {
+          "type": "number",
+          "default": 3,
+          "description": "并发操作数量"
+        },
+        "mgitsvn.autoRefresh": {
+          "type": "boolean",
+          "default": true,
+          "description": "操作后自动刷新状态"
+        },
+        "mgitsvn.showNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "显示操作结果通知消息"
+        },
+        "mgitsvn.showWelcomeMessage": {
+          "type": "boolean",
+          "default": true,
+          "description": "启动时显示欢迎消息（如果未配置）"
+        },
+        "mgitsvn.authMode": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "background",
+            "interactive-task"
+          ],
+          "default": "auto",
+          "description": "SVN/Git-SVN 命令认证执行模式"
+        },
+        "mgitsvn.rememberCredentials": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否将 SVN 用户名和密码安全保存到 VS Code SecretStorage"
+        },
+        "mgitsvn.interactiveTerminalOnAuthFailure": {
+          "type": "boolean",
+          "default": true,
+          "description": "后台认证失败时是否自动回退到集成终端继续执行"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run esbuild-base -- --production",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "esbuild-base": "node esbuild.js",
+    "esbuild": "node esbuild.js",
+    "esbuild-watch": "node esbuild.js --watch",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "pnpm run esbuild && vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "@vscode/vsce": "^3.2.0",
+    "esbuild": "^0.27.2",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "simple-git": "^3.21.0"
+  }
+}

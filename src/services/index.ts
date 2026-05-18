@@ -1,0 +1,17 @@
+export { ConfigurationManager } from './ConfigurationManager';
+export { ExternalsAutoManageStrategy } from './ExternalsAutoManageStrategy';
+export { DirectoryExternalProjectManager } from './DirectoryExternalProjectManager';
+export { ExcludeRuleManager } from './ExcludeRuleManager';
+export { ExternalsSummaryHelper } from './ExternalsSummaryHelper';
+export { FileExternalLinkManager } from './FileExternalLinkManager';
+export { FileExternalRuleHelper } from './FileExternalRuleHelper';
+export { GitSvnCommandRunner } from './GitSvnCommandRunner';
+export { GitSvnAdapter } from './GitSvnAdapter';
+export { RepositoryManager } from './RepositoryManager';
+export { RuntimeContextService } from './RuntimeContextService';
+export { SvnAuthBootstrapService } from './SvnAuthBootstrapService';
+export { classifySvnAuthError } from './SvnAuthErrorClassifier';
+export { SvnCredentialService } from './SvnCredentialService';
+export { SvnExternalsParser } from './SvnExternalsParser';
+export { SvnExternalsService } from './SvnExternalsService';
+export { WorktreeManager } from './WorktreeManager';
